@@ -1,0 +1,105 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif; /* Changed font */
+    background-color: #f8f0e3; /* Light pastel background */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Heading Styling */
+h1 {
+    color: #333;
+    font-size: 2.5rem;
+    font-family: 'Georgia', serif; /* Changed font */
+    margin-bottom: 20px;
+}
+
+/* Styling the car image at the top */
+.car-image-top {
+    width: 100%; /* Ensures image is wide */
+    max-width: 600px; /* Makes the image smaller and fit the page */
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Styling the form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Styling the prediction result */
+.prediction-result {
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.prediction-result h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.prediction-result p {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 20px 0;
+}
+
+.prediction-result .car-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 20px;
+}
