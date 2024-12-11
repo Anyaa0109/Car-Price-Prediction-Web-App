@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Car Image at the top -->
+        <img class="car-image-top" src="{{ url_for('static', filename='car1.jpg') }}" alt="Car Image">
+
+        <h1>Car Price Prediction</h1>
+        <form action="/predict" method="POST">
+            <label>Fuel Type:</label>
+            <select name="Fuel_Type" required>
+                <option value="0">Petrol</option>
+                <option value="1">Diesel</option>
+                <option value="2">CNG</option>
+            </select>
+            <br>
+            <label>Seller Type:</label>
+            <select name="Seller_Type" required>
+                <option value="0">Dealer</option>
+                <option value="1">Individual</option>
+            </select>
+            <br>
+            <label>Transmission:</label>
+            <select name="Transmission" required>
+                <option value="0">Manual</option>
+                <option value="1">Automatic</option>
+            </select>
+            <br>
+            <label>Present Price (in Lakhs):</label>
+            <input type="number" name="Present_Price" step="any" required>
+            <br>
+            <label>Kms Driven:</label>
+            <input type="number" name="Kms_Driven" required>
+            <br>
+            <label>Owner:</label>
+            <input type="number" name="Owner" required>
+            <br>
+            <label>Age of the Car (in years):</label>
+            <input type="number" name="Age" required>
+            <br>
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Car Image before prediction (optional) -->
+        <img class="car-image" src="{{ url_for('static', filename='car2.jpg') }}" alt="Car Image">
+
+    </div>
+
+    {% if prediction %}
+        <div class="prediction-result">
+            <h2>Predicted Car Price</h2>
+            <p>The predicted price of the car is ₹{{ prediction }} lakhs</p>
+
+            <!-- Car Image after prediction -->
+            <img class="car-image" src="{{ url_for('static', filename='car2.jpg') }}" alt="Car Image">
+        </div>
+    {% endif %}
+</body>
+</html>
