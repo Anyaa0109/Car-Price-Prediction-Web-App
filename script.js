@@ -29,7 +29,11 @@ function predictPrice() {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById("prediction-result").innerHTML = "Predicted Price: ₹" + data.predicted_price.toFixed(2);
+        if (data.error) {
+            document.getElementById("prediction-result").innerHTML = "Error: " + data.error;
+        } else {
+            document.getElementById("prediction-result").innerHTML = "Predicted Price: ₹" + data.predicted_price.toFixed(2);
+        }
     })
     .catch(error => console.error('Error:', error));
 }
