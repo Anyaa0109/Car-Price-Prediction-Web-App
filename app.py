@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request
-import joblib
+from flask import Flask, render_template, request, jsonify
 import numpy as np
+import joblib
 
 app = Flask(__name__)
 
-# Load the saved model
+# Load trained model
 model = joblib.load('linear_reg_model.pkl')
 
 @app.route('/')
@@ -13,21 +13,35 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Get form data
-    fuel_type = int(request.form['Fuel_Type'])
-    seller_type = int(request.form['Seller_Type'])
-    transmission = int(request.form['Transmission'])
-    present_price = float(request.form['Present_Price'])
-    kms_driven = int(request.form['Kms_Driven'])
-    owner = int(request.form['Owner'])
-    age = int(request.form['Age'])
+    try:
+        # Get JSON data
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No JSON data received'}), 400
 
-    # Prepare the input for prediction
-    features = np.array([[present_price, kms_driven, owner, fuel_type, seller_type, transmission, age]])
-    predicted_price = model.predict(features)[0]
+        # Extract values with validation
+        year = int(data.get('year', 0))
+        present_price = float(data.get('present_price', 0))
+        kms_driven = int(data.get('kms_driven', 0))
+        fuel_type = int(data.get('fuel_type', 0))
+        seller_type = int(data.get('seller_type', 0))
+        transmission = int(data.get('transmission', 0))
+        owner = int(data.get('owner', 0))
 
-    # Render template with prediction
-    return render_template('index.html', prediction=round(predicted_price, 2))
+        # Check if any value is missing
+        if not all([year, present_price, kms_driven]):
+            return jsonify({'error': 'Missing required fields'}), 400
+
+        # Prepare input array for model
+        input_features = np.array([[year, present_price, kms_driven, fuel_type, seller_type, transmission, owner]])
+
+        # Make prediction
+        predicted_price = model.predict(input_features)[0]
+
+        return jsonify({'predicted_price': round(predicted_price, 2)})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(debug=True)
